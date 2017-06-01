@@ -13,10 +13,10 @@ setup(
     version='0.0.2',
     keyword=['AIS', 'Automatic Identification System'],
     description='Python library parsing AIS message',
-    author='Macrovve',
-    author_email='macrovve@gmail.com',
+    author=['Macrovve', 'callMePlus'],
     license='MIT License',
     install_requires=[],
+    url='https://github.com/macrovve/aisparser',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',

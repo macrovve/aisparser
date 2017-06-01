@@ -1,7 +1,8 @@
 from .vdm_core import VDM
 from .vdm_core import revd_msg_s
 import re
-from .VDM import VDM_TYPE_MAP
+from .vdm import VDM_TYPE_MAP
+
 re_sentence_type = re.compile('[$!](?P<sentence_type>[A-Z0-9]*),')
 re_basic_info = re.compile(',(?P<total_number>[1-9]?)'
                            ',(?P<sentence_number>[0-9]?)'
@@ -9,10 +10,6 @@ re_basic_info = re.compile(',(?P<total_number>[1-9]?)'
                            ',(?P<channel>[A-B]?)'
                            ',(?P<message>.*)'
                            ',')
-
-# sentence 一整句
-# fragment 有用部分
-# message 出去type剩下的
 
 VDM = VDM()
 
@@ -48,8 +45,8 @@ class VDMFactory(object):
         """工厂方法，返回对应的VDM类
 
         """
-        sentence, message = self.preprocess(sentence)
-        msg = self.construct_msg(sentence, message)
+        sentence, message = self._preprocess(sentence)
+        msg = self._construct_msg(sentence, message)
 
         message_id = VDM.get_message_id(msg)
         if message_id in VDM_TYPE_MAP:
@@ -59,7 +56,7 @@ class VDMFactory(object):
         else:
             pass
 
-    def construct_msg(self, sentence, message):
+    def _construct_msg(self, sentence, message):
         """用sentence和message生成revd_msg_s结构体，方便调用c代码
 
         """
@@ -70,7 +67,7 @@ class VDMFactory(object):
         msg.major_msg_p = ''.join(message)
         return msg
 
-    def preprocess(self, sentence):
+    def _preprocess(self, sentence):
         """对当前的sentence进行预处理，处理连续报文的情况
 
         """

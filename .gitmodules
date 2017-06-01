@@ -1,0 +1,3 @@
+[submodule "aisparser/core"]
+	path = aisparser/core
+	url = https://github.com/callMePlus/ais_parse.git

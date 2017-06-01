@@ -1,4 +1,5 @@
-from .core.vdm_core import get_message_id, revd_msg_s
+from .vdm_core import VDM
+from .vdm_core import revd_msg_s
 import re
 from .VDM import VDM_TYPE_MAP
 re_sentence_type = re.compile('[$!](?P<sentence_type>[A-Z0-9]*),')
@@ -12,6 +13,8 @@ re_basic_info = re.compile(',(?P<total_number>[1-9]?)'
 # sentence 一整句
 # fragment 有用部分
 # message 出去type剩下的
+
+VDM = VDM()
 
 
 class Parser(object):
@@ -48,7 +51,7 @@ class VDMFactory(object):
         sentence, message = self.preprocess(sentence)
         msg = self.construct_msg(sentence, message)
 
-        message_id = get_message_id(msg)
+        message_id = VDM.get_message_id(msg)
         if message_id in VDM_TYPE_MAP:
             return VDM_TYPE_MAP[message_id](
                 self.total_number, self.sentence_number,

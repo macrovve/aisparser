@@ -1,6 +1,8 @@
-from .core.vdm_core import get_navigational_status, get_sog, get_cog, get_latitude, get_longitude, get_true_heading
+# from .vdm_core import get_navigational_status, get_sog, get_cog, get_latitude, get_longitude, get_true_heading
+from .vdm_core import VDM_1
 
 __all__ = ['VDM_TYPE_MAP', 'VDM', 'VDM1', 'VDM2', 'VDM3', 'VDM4', 'VDM5']
+VDM_1 = VDM_1()
 
 
 class VDM(object):
@@ -19,27 +21,27 @@ class VDM1(VDM):
 
     @property
     def navigational_status(self):
-        return get_navigational_status(self._msg)
+        return VDM_1.get_navigational_status(self._msg)
 
     @property
     def sog(self):
-        return get_sog(self._msg)
+        return VDM_1.get_sog(self._msg)
 
     @property
     def cog(self):
-        return get_cog(self._msg)
+        return VDM_1.get_cog(self._msg)
 
     @property
     def true_heading(self):
-        return get_true_heading(self._msg)
+        return VDM_1.get_true_heading(self._msg)
 
     @property
     def longitude(self):
-        return get_longitude(self._msg)
+        return VDM_1.get_longitude(self._msg)
 
     @property
     def latitude(self):
-        return get_latitude(self._msg)
+        return VDM_1.get_latitude(self._msg)
 
 
 VDM2 = VDM1

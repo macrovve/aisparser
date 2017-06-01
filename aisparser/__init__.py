@@ -1,3 +1,3 @@
-from .parser import parse
+from .parser import Parser
 
-__all__ = ['parse']
+__all__ = ['Parser']

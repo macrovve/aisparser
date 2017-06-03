@@ -1,12 +1,4 @@
-from .vdm_core import VDM_1, VDM_5, VDM_6, VDM_8, VDM_12, VDM_14, VDM_18
-
-VDM_1 = VDM_1()
-VDM_5 = VDM_5()
-VDM_6 = VDM_6()
-VDM_8 = VDM_8()
-VDM_12 = VDM_12()
-VDM_14 = VDM_14()
-VDM_18 = VDM_18()
+from .core import VDM_1, VDM_5, VDM_6, VDM_8, VDM_12, VDM_14, VDM_18
 
 __all__ = [
     'VDM_TYPE_MAP', 'VDM', 'VDM1', 'VDM2', 'VDM3', 'VDM5', 'VDM6', 'VDM8',

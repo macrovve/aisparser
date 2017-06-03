@@ -1,16 +1,17 @@
 from setuptools import setup, Extension
 
 vdm_module = Extension(
-    '_vdm_core',
+    '_cpp',
     sources=[
-        'aisparser/vdm_core.i', 'aisparser/core/vdm_opt.cpp',
-        'aisparser/core/srcdata_opt.cpp', 'aisparser/core/vdm_parse_core.cpp'
+        'aisparser/core/cpp.i', 'aisparser/core/cpp/vdm_opt.cpp',
+        'aisparser/core/cpp/srcdata_opt.cpp',
+        'aisparser/core/cpp/vdm_parse_core.cpp'
     ],
     swig_opts=['-c++'])
 
 setup(
     name='aisparser',
-    version='0.0.2',
+    version='0.0.4',
     keyword=['AIS', 'Automatic Identification System'],
     description='Python library parsing AIS message',
     author=['Macrovve', 'callMePlus'],

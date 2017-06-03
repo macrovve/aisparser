@@ -44,8 +44,9 @@ def construct_cpp_msg(sentence, message):
     """
     msg = revd_msg_s()
     msg.count = len(sentence)
-    msg.msg[0] = sentence[0]
-    msg.major_msg_p = ''.join(message)
+    for i in range(msg.count):
+        msg.set_msg_by_count(i, sentence[i])
+    msg.major_msg = ''.join(message)
     return msg
 
 

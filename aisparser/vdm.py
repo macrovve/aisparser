@@ -8,17 +8,22 @@ __all__ = [
 
 class VDM(object):
     def __init__(self):
-        pass
+        self.type_ = 'vdm'
+
+    def get(self, k, d=None):
+        return getattr(self, k, d)
 
 
 class VDM1(VDM):
     def __init__(self, total_num, sentence_num, sequential_msg_identifier,
                  channel, msg):
+        super(VDM1, self).__init__()
         self.total_num = total_num
         self.sentence_num = sentence_num
         self.sequential_msg_identifier = sequential_msg_identifier
         self.channel = channel
         self._msg = msg
+        self.msg_id = 1
 
     @property
     def navigational_status(self):
@@ -45,18 +50,20 @@ class VDM1(VDM):
         return VDM_1.get_latitude(self._msg)
 
 
-VDM2 = VDM1
+VDM2 = VDM1  # todo msg_id
 VDM3 = VDM1
 
 
 class VDM5(VDM):
     def __init__(self, total_num, sentence_num, sequential_msg_identifier,
                  channel, msg):
+        super(VDM5, self).__init__()
         self.total_num = total_num
         self.sentence_num = sentence_num
         self.sequential_msg_identifier = sequential_msg_identifier
         self.channel = channel
         self._msg = msg
+        self.msg_id = 5
 
     @property
     def imo_number(self):
@@ -82,11 +89,14 @@ class VDM5(VDM):
 class VDM6(VDM):
     def __init__(self, total_num, sentence_num, sequential_msg_identifier,
                  channel, msg):
+        super(VDM6, self).__init__()
+
         self.total_num = total_num
         self.sentence_num = sentence_num
         self.sequential_msg_identifier = sequential_msg_identifier
         self.channel = channel
         self._msg = msg
+        self.msg_id = 6
 
     @property
     def application_data(self):
@@ -96,11 +106,13 @@ class VDM6(VDM):
 class VDM8(VDM):
     def __init__(self, total_num, sentence_num, sequential_msg_identifier,
                  channel, msg):
+        super(VDM8, self).__init__()
         self.total_num = total_num
         self.sentence_num = sentence_num
         self.sequential_msg_identifier = sequential_msg_identifier
         self.channel = channel
         self._msg = msg
+        self.msg_id = 8
 
     @property
     def application_data(self):
@@ -110,11 +122,14 @@ class VDM8(VDM):
 class VDM12(VDM):
     def __init__(self, total_num, sentence_num, sequential_msg_identifier,
                  channel, msg):
+        super(VDM12, self).__init__()
+
         self.total_num = total_num
         self.sentence_num = sentence_num
         self.sequential_msg_identifier = sequential_msg_identifier
         self.channel = channel
         self._msg = msg
+        self.msg_id = 12
 
     @property
     def safaty_text(self):
@@ -124,11 +139,14 @@ class VDM12(VDM):
 class VDM14(VDM):
     def __init__(self, total_num, sentence_num, sequential_msg_identifier,
                  channel, msg):
+        super(VDM14, self).__init__()
+
         self.total_num = total_num
         self.sentence_num = sentence_num
         self.sequential_msg_identifier = sequential_msg_identifier
         self.channel = channel
         self._msg = msg
+        self.msg_id = 14
 
     @property
     def safaty_text(self):
@@ -138,11 +156,13 @@ class VDM14(VDM):
 class VDM18(VDM):
     def __init__(self, total_num, sentence_num, sequential_msg_identifier,
                  channel, msg):
+        super(VDM18, self).__init__()
         self.total_num = total_num
         self.sentence_num = sentence_num
         self.sequential_msg_identifier = sequential_msg_identifier
         self.channel = channel
         self._msg = msg
+        self.msg_id = 18
 
     @property
     def sog(self):

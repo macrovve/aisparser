@@ -4,15 +4,30 @@ from .vdm import VDM_TYPE_MAP
 
 
 class Parser(object):
-    def __init__(self):
+    def __init__(self, **kargs):
         self.factory = VDMFactory()
 
     def parse(self, sentence):
         type_ = get_sentence_type(sentence)
-        if 'VDM' in type_:
+        if 'VDM' in type_.upper():
             return self.factory.create_VDM(sentence)
         else:
-            pass
+            return None
+
+    def from_file(self, filename, filters=None):
+        def filter_func(record):
+            if not filters:
+                return True
+            else:
+                return filters(record)
+
+        with open(filename) as file:
+            for sentence in file:
+                if sentence == '\n':
+                    continue
+                record = self.parse(sentence)
+                if record and filter_func(record):
+                    yield record
 
 
 class VDMFactory(object):

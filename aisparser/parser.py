@@ -11,17 +11,21 @@ class Parser(object):
         type_ = get_sentence_type(sentence)
         if 'VDM' in type_.upper():
             return self.factory.create_VDM(sentence)
-        else:
+        # 其他类型暂未实现
+        elif type_.upper in ('PSHI', 'GPGGA', 'GPVTG', 'GPZDA'):
             return None
+        else:
+            raise NotImplementedError
 
-    def from_file(self, filename, filters=None):
+    def from_file(self, filename, filter_=None, encoding=None):
         def filter_func(record):
-            if not filters:
+            if not filter_:
                 return True
-            else:
-                return filters(record)
+            if record:
+                return filter_(record)
+            return False
 
-        with open(filename) as file:
+        with open(filename, encoding=encoding) as file:
             for sentence in file:
                 if sentence == '\n':
                     continue
@@ -47,16 +51,18 @@ class VDMFactory(object):
         sentence, message = self._preprocess(sentence)
         msg = construct_cpp_msg(sentence, message)
 
-        message_id = VDM.get_message_id(msg)
-        if message_id in VDM_TYPE_MAP:
-            return VDM_TYPE_MAP[message_id](
-                self.total_number, self.sentence_number,
-                self.sequential_msg_identifier, self.channel, msg)
+        msg_id = VDM.get_message_id(msg)
+        vdm_cls = VDM_TYPE_MAP.get(msg_id)
+        if vdm_cls:
+            return vdm_cls(self.total_number, self.sentence_number,
+                           self.sequential_msg_identifier, self.channel, msg)
+        elif msg_id <= 27:  # Not implemented 
+            return None
         else:
-            pass
+            raise Exception('msg_id range from 1 to 27', msg_id)
 
     def _preprocess(self, sentence):
-        """对当前的sentence进行预处理，处理连续报文的情况
+        """对当前的sentence进行预处理，主要处理连续报文的情况
 
         """
 
@@ -77,3 +83,19 @@ class VDMFactory(object):
             self.channel = channel
             self.message = [message]
         return self.sentence, self.message
+
+
+class PSHIFactory(object):
+    pass
+
+
+class GPGGAFactory(object):
+    pass
+
+
+class GPVTGFactory(object):
+    pass
+
+
+class GPZDAFactory(object):
+    pass

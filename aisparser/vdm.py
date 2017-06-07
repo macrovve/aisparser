@@ -50,8 +50,20 @@ class VDM1(VDM):
         return VDM_1.get_latitude(self._msg)
 
 
-VDM2 = VDM1  # todo msg_id
-VDM3 = VDM1
+class VDM2(VDM1):
+    def __init__(self, total_num, sentence_num, sequential_msg_identifier,
+                 channel, msg):
+        super(VDM2, self).__init__(total_num, sentence_num,
+                                   sequential_msg_identifier, channel, msg)
+        self.msg_id = 2
+
+
+class VDM3(VDM1):
+    def __init__(self, total_num, sentence_num, sequential_msg_identifier,
+                 channel, msg):
+        super(VDM3, self).__init__(total_num, sentence_num,
+                                   sequential_msg_identifier, channel, msg)
+        self.msg_id = 3
 
 
 class VDM5(VDM):

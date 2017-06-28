@@ -11,7 +11,7 @@ vdm_module = Extension(
 
 setup(
     name='aisparser',
-    version='0.0.4',
+    version='0.0.6',
     keyword=['AIS', 'Automatic Identification System'],
     description='Python library parsing AIS message',
     author=['Macrovve', 'callMePlus'],

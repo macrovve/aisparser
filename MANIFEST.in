@@ -1,0 +1,4 @@
+include README.md
+include aisparser/core/cpp/srcdata_opt.h
+include aisparser/core/cpp/vdm_opt.h
+include aisparser/core/cpp/vdm_parse_core.h

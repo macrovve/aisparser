@@ -1,4 +1,8 @@
 # AIS Parser
+## Install
+
+1. install swig
+2. `pip install aisparser`
 
 ## Quick Start
 Parse one line at a time

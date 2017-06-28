@@ -1,6 +1,7 @@
 from .core import get_sentence_type, get_basic_info, construct_cpp_msg
 from .core import VDM
 from .vdm import VDM_TYPE_MAP
+import os
 
 
 class Parser(object):
@@ -9,13 +10,18 @@ class Parser(object):
 
     def parse(self, sentence):
         type_ = get_sentence_type(sentence)
+        # print(sentence)
         if 'VDM' in type_.upper():
             return self.factory.create_VDM(sentence)
         # 其他类型暂未实现
-        elif type_.upper in ('PSHI', 'GPGGA', 'GPVTG', 'GPZDA'):
+        elif type_.upper() in ('ARVSI', 'PSHI', 'GPGGA', 'GPVTG', 'GPZDA',
+                               'ARFSR', 'ARADS', 'ARALR'):
+            # print('Not ImplementedError this type')
             return None
         else:
-            raise NotImplementedError
+            print('Message type not implement', type_)
+            return None
+            # raise NotImplementedError
 
     def from_file(self, filename, filter_=None, encoding=None):
         def filter_func(record):
@@ -27,7 +33,7 @@ class Parser(object):
 
         with open(filename, encoding=encoding) as file:
             for sentence in file:
-                if sentence == '\n':
+                if sentence == os.linesep:
                     continue
                 record = self.parse(sentence)
                 if record and filter_func(record):
@@ -54,12 +60,15 @@ class VDMFactory(object):
         msg_id = VDM.get_message_id(msg)
         vdm_cls = VDM_TYPE_MAP.get(msg_id)
         if vdm_cls:
-            return vdm_cls(self.total_number, self.sentence_number,
+            return vdm_cls(sentence, self.total_number, self.sentence_number,
                            self.sequential_msg_identifier, self.channel, msg)
         elif msg_id <= 27:  # Not implemented 
             return None
         else:
-            raise Exception('msg_id range from 1 to 27', msg_id)
+            # 这个报错信息如果该条被过滤的话，那么报错信息应该不显示的
+            print('msg_id should range from 1 to 27', msg_id, msg.major_msg)
+            return None
+            # raise Exception('msg_id range from 1 to 27', msg_id)
 
     def _preprocess(self, sentence):
         """对当前的sentence进行预处理，主要处理连续报文的情况
@@ -82,7 +91,7 @@ class VDMFactory(object):
             self.sequential_msg_identifier = sequential_msg_identifier
             self.channel = channel
             self.message = [message]
-        return self.sentence, self.message
+        return self.sentence, ''.join(self.message)
 
 
 class PSHIFactory(object):

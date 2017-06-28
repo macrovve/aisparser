@@ -51,6 +51,7 @@ def construct_cpp_msg(sentence, message):
 
 
 # get_message_id
+# get_mmsi
 VDM = VDM()
 
 # VDM_1.get_navigational_status()
